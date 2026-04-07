@@ -1,4 +1,4 @@
-package model;
+package ucr.algoritmos.tarea01.model;
 
 public class ConversorKilometros extends Conversor {
     private static final double KILOMETROS_A_METROS = 1000.0;

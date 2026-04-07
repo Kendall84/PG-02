@@ -1,10 +1,10 @@
-package controller;
+package ucr.algoritmos.tarea01.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 /**
- * Controlador para la vista inicial, si se desea.
+ * Controlador para la vista inicial
  */
 public class HelloController {
     @FXML
@@ -12,6 +12,6 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("¡Bienvenido al Multi-Conversor!");
+        welcomeText.setText("¡Welcome to JavaFX Application!");
     }
 }

@@ -1,4 +1,4 @@
-package model;
+package ucr.algoritmos.tarea01.model;
 
 /**
  * Clase base para la lógica de los conversores.

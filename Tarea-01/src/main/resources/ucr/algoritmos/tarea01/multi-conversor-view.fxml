@@ -7,65 +7,103 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" styleClass="root-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucr.algoritmos.tarea01.controller.MainController">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
-          <Tab text="Moneda">
-            <content>
-              <VBox alignment="CENTER" spacing="15.0">
-                 <children>
-                    <Label text="Dólares a Colones">
-                       <font><Font name="System Bold" size="18.0" /></font>
-                    </Label>
-                    <TextField fx:id="txtDolares" maxWidth="200.0" promptText="Monto en $" />
-                    <Button onAction="#onBtnDolaresClick" text="Convertir" />
-                    <Label fx:id="lblResultadoDolares" text="Resultado: -">
-                       <font><Font size="14.0" /></font>
-                    </Label>
-                 </children>
-                 <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0" /></padding>
-              </VBox>
-            </content>
-          </Tab>
-          <Tab text="Distancia">
-            <content>
-              <VBox alignment="CENTER" spacing="15.0">
-                 <children>
-                    <Label text="Km a Metros">
-                       <font><Font name="System Bold" size="18.0" /></font>
-                    </Label>
-                    <TextField fx:id="txtKilometros" maxWidth="200.0" promptText="Kilómetros" />
-                    <Button onAction="#onBtnKilometrosClick" text="Convertir" />
-                    <Label fx:id="lblResultadoKilometros" text="Resultado: -">
-                       <font><Font size="14.0" /></font>
-                    </Label>
-                 </children>
-                 <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0" /></padding>
-              </VBox>
-            </content>
-          </Tab>
-          <Tab text="Temperatura">
-            <content>
-              <VBox alignment="CENTER" spacing="15.0">
-                 <children>
-                    <Label text="Celsius a Fahrenheit">
-                       <font><Font name="System Bold" size="18.0" /></font>
-                    </Label>
-                    <TextField fx:id="txtCelsius" maxWidth="200.0" promptText="Grados °C" />
-                    <Button onAction="#onBtnTemperaturaClick" text="Convertir" />
-                    <Label fx:id="lblResultadoTemperatura" text="Resultado: -">
-                       <font><Font size="14.0" /></font>
-                    </Label>
-                 </children>
-                 <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0" /></padding>
-              </VBox>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
+      <VBox spacing="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <!-- Header Institucional UCR -->
+            <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-bar">
+               <children>
+                  <VBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="header-title" text="Multi-Conversor Institucional" textFill="WHITE">
+                           <font><Font name="System Bold" size="20.0" /></font>
+                        </Label>
+                        <Label styleClass="header-sub" text="Algoritmos y Estructuras de Datos · Tarea 01" textFill="#adbdd4" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="25.0" right="25.0" top="15.0" />
+               </padding>
+            </HBox>
+
+            <!-- Panel de Pestañas Principal -->
+            <TabPane styleClass="main-tabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+              <tabs>
+                <!-- Sección de Moneda -->
+                <Tab text="Moneda ($)">
+                  <content>
+                    <VBox alignment="CENTER" spacing="25.0" styleClass="panel">
+                       <children>
+                          <Label styleClass="panel-title" text="Conversión de Dólares a Colones" />
+                          <TextField fx:id="txtDolares" maxWidth="250.0" promptText="Monto en $" />
+                          <Button onAction="#onBtnDolaresClick" styleClass="btn-primary" text="Calcular Cambio" />
+                          <VBox alignment="CENTER" styleClass="stat-card, blue-card">
+                             <children>
+                                <Label styleClass="stat-label" text="RESULTADO EN COLONES" />
+                                <Label fx:id="lblResultadoDolares" styleClass="stat-value" text="-" />
+                             </children>
+                          </VBox>
+                       </children>
+                       <padding><Insets bottom="40.0" left="40.0" right="40.0" top="40.0" /></padding>
+                    </VBox>
+                  </content>
+                </Tab>
+
+                <!-- Sección de Distancia -->
+                <Tab text="Distancia (Km)">
+                  <content>
+                    <VBox alignment="CENTER" spacing="25.0" styleClass="panel">
+                       <children>
+                          <Label styleClass="panel-title" text="Conversión de Kilómetros a Metros" />
+                          <TextField fx:id="txtKilometros" maxWidth="250.0" promptText="Distancia en Km" />
+                          <Button onAction="#onBtnKilometrosClick" styleClass="btn-primary" text="Convertir Distancia" />
+                          <VBox alignment="CENTER" styleClass="stat-card, green-card">
+                             <children>
+                                <Label styleClass="stat-label" text="RESULTADO EN METROS" />
+                                <Label fx:id="lblResultadoKilometros" styleClass="stat-value" text="-" />
+                             </children>
+                          </VBox>
+                       </children>
+                       <padding><Insets bottom="40.0" left="40.0" right="40.0" top="40.0" /></padding>
+                    </VBox>
+                  </content>
+                </Tab>
+
+                  <!-- Sección de Temperatura -->
+                <Tab text="Temperatura (°C)">
+                  <content>
+                    <VBox alignment="CENTER" spacing="25.0" styleClass="panel">
+                       <children>
+                          <Label styleClass="panel-title" text="Conversión de Celsius a Fahrenheit" />
+                          <TextField fx:id="txtCelsius" maxWidth="250.0" promptText="Grados °C" />
+                          <Button onAction="#onBtnTemperaturaClick" styleClass="btn-primary" text="Convertir Temperatura" />
+                          <VBox alignment="CENTER" styleClass="stat-card, amber-card">
+                             <children>
+                                <Label styleClass="stat-label" text="RESULTADO EN FAHRENHEIT" />
+                                <Label fx:id="lblResultadoTemperatura" styleClass="stat-value" text="-" />
+                             </children>
+                          </VBox>
+                       </children>
+                       <padding><Insets bottom="40.0" left="40.0" right="40.0" top="40.0" /></padding>
+                    </VBox>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+
+            <!-- Barra de Estado Inferior -->
+            <HBox alignment="CENTER_LEFT" styleClass="status-bar">
+               <padding>
+                  <Insets bottom="5.0" left="25.0" right="25.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

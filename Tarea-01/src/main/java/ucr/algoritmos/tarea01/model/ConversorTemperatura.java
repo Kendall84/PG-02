@@ -1,4 +1,4 @@
-package model;
+package ucr.algoritmos.tarea01.model;
 
 public class ConversorTemperatura extends Conversor {
     @Override

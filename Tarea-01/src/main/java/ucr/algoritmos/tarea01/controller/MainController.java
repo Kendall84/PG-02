@@ -1,13 +1,17 @@
-package controller;
+package ucr.algoritmos.tarea01.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import ucr.algoritmos.tarea01.model.Conversor;
+import ucr.algoritmos.tarea01.model.ConversorDolares;
+import ucr.algoritmos.tarea01.model.ConversorKilometros;
+import ucr.algoritmos.tarea01.model.ConversorTemperatura;
 
-/**
- * Controlador principal de la interfaz de usuario JavaFX.
- * Maneja la lógica de interacción para las conversiones de moneda, distancia y temperatura.
- */
+
+ //Controlador principal de la interfaz gráfica.
+ //Maneja la lógica de interacción para las conversiones de moneda, distancia y temperatura.
+
 public class MainController {
 
     @FXML
@@ -25,39 +29,27 @@ public class MainController {
     @FXML
     private Label lblResultadoTemperatura;
 
-    /**
-     * Acción del botón de conversión para dólares.
-     */
+
+     //Acción del botón de conversión para dólares.
     @FXML
     protected void onBtnDolaresClick() {
         procesarConversion(txtDolares, lblResultadoDolares, new ConversorDolares(), " Colones");
     }
 
-    /**
-     * Acción del botón de conversión para kilómetros.
-     */
+    // Acción del botón de conversión para kilómetros.
     @FXML
     protected void onBtnKilometrosClick() {
         procesarConversion(txtKilometros, lblResultadoKilometros, new ConversorKilometros(), " Metros");
     }
 
-    /**
-     * Acción del botón de conversión para temperatura.
-     */
+
+     //Acción del botón de conversión para temperatura.
     @FXML
     protected void onBtnTemperaturaClick() {
         procesarConversion(txtCelsius, lblResultadoTemperatura, new ConversorTemperatura(), " °F");
     }
 
-    /**
-     * Método genérico para procesar cualquier conversión.
-     * Utiliza polimorfismo a través de la clase base Conversor.
-     *
-     * @param textField Campo de texto con el valor de entrada.
-     * @param label Etiqueta donde se mostrará el resultado.
-     * @param conversor Instancia específica del conversor a utilizar.
-     * @param unidad Sufijo de la unidad de medida resultante.
-     */
+
     private void procesarConversion(TextField textField, Label label, Conversor conversor, String unidad) {
         try {
             double valorEntrada = Double.parseDouble(textField.getText());
