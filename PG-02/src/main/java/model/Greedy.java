@@ -5,33 +5,37 @@ import java.util.List;
 
 public class Greedy {
 
-    private static int[] monedas = {500, 100, 50, 25, 10, 5, 1};
+    // Denominaciones oficiales para el algoritmo, ahora públicas y finales
+    public static final int[] MONEDAS_CR = {500, 100, 50, 25, 10, 5, 1};
 
-    public static List<String> coinChange(int monto) {
-        List<String> usadas = new ArrayList<>();
+    /**
+     * Algoritmo Greedy para el cambio de monedas.
+     * @param monto El monto total a desglosar.
+     * @return Una lista de objetos Moneda con el desglose.
+     */
+    public static List<Moneda> coinChange(int monto) {
+        List<Moneda> usadas = new ArrayList<>();
+        int remaining = monto;
+
         if (monto <= 0) {
-            return usadas;  // Caso edge: monto cero o negativo, retornar lista vacía
+            return usadas;
         }
-        for (int moneda : monedas) {
-            int count = 0;
 
-
-            while (monto >= moneda) {
-                count++;
-                monto -= moneda;  // Restar la moneda al monto
-
+        for (int coinValue : MONEDAS_CR) {
+            int quantity = remaining / coinValue;
+            if (quantity > 0) {
+                int amountUsed = quantity * coinValue;
+                remaining -= amountUsed;
+                // Creamos un objeto Moneda para este paso
+                // Parámetros: denominacion (String), cantidad (int), monto (double), restante (double)
+                usadas.add(new Moneda(String.valueOf(coinValue), quantity, (double)amountUsed, (double)remaining));
             }
-             if (count >  0) {
-                 String detalle = moneda + " X "+ count+ ", restante: " + monto;
-                 usadas.add(detalle);
-             }
         }
-        return usadas;  // Lista de monedas usadas
+        return usadas;
     }
 
-
     public static class KnapsackResult{
-        public final Item[] sortedItems;//lista
+        public final Item[] sortedItems;
         public final List<Item> selected;
         private final double maxValue;
         private final int maxWeight;
@@ -50,22 +54,16 @@ public class Greedy {
 
     public static KnapsackResult knapsackResult(Item[] items, int capacity){
         long t1= System.nanoTime();
-
-        //copiar y ordenar el arreglo por ratio v/w descendente
         Item[] sortedItems = items.clone();
-        //Arrays.sort(sortedItems, (a,b) -> Double.compare(a.getRadio(),b.getRadio()));
-
         bubbleSort(sortedItems);
         List<Item> selected = new ArrayList<>();
         double totalValue = 0;
         int totalWeight = 0;
         int remainingCapacity = capacity;
 
-
         for (Item item : sortedItems){
             if (remainingCapacity <= 0) break;
             if (item.getWeight() <=remainingCapacity){
-
                 selected.add(new Item(item.getName(), item.getWeight(), item.getValue()));
                 totalValue += item.getValue();
                 totalWeight += item.getWeight();
@@ -77,51 +75,20 @@ public class Greedy {
         return new KnapsackResult(sortedItems,selected,totalValue,totalWeight,capacity,nanos);
     }
 
-
-        // Método para ordenar usando el algoritmo de burbuja
-        public static void bubbleSort(Item[] arr) {
-            int n = arr.length;
-            boolean swapped;
-
-            // Recorremos el arreglo varias veces
-            for (int i = 0; i < n - 1; i++) {
-                swapped = false;
-                for (int j = 0; j < n - i - 1; j++) {
-                    // Si el elemento actual es mayor que el siguiente, intercambiamos
-                    if (arr[j].getRadio() < arr[j + 1].getRadio()) {
-                        Item temp = arr[j];
-                        arr[j] = arr[j + 1];
-                        arr[j + 1] = temp;
-                        swapped = true;
-                    }
+    public static void bubbleSort(Item[] arr) {
+        int n = arr.length;
+        boolean swapped;
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j].getRadio() < arr[j + 1].getRadio()) {
+                    Item temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
                 }
-                // Si no hubo intercambios, el arreglo ya está ordenado
-                if (!swapped) break;
             }
-        }
-
-
-
-
-
-
-
-
-    // Método opcional para mostrar detalles (cuántas de cada moneda). Elimínalo si no lo necesitas.
-    public static void coinChangeDetailed(int monto) {
-        if (monto <= 0) {
-            System.out.println("Monto inválido");
-            return;
-        }
-        for (int moneda : monedas) {
-            int count = 0;
-            while (monto >= moneda) {
-                count++;
-                monto -= moneda;
-            }
-            if (count > 0) {
-                System.out.println(count + " x " + moneda);
-            }
+            if (!swapped) break;
         }
     }
 }
